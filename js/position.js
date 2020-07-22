@@ -8,7 +8,9 @@ class Position {
   }
 
   create() {
-    this.x = Math.random() * this.width;
-    this.y = Math.random() * this.height;
+    return {
+      x: Math.random() * this.width,
+      y: Math.random() * this.height,
+    };
   }
 }

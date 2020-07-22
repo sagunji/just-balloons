@@ -17,6 +17,8 @@ class Ball {
     this.ball.style.position = "absolute";
     this.ball.style.borderRadius = "50%";
 
+    this.container.appendChild(this.ball);
+
     this.ball.addEventListener(
       "click",
       (function () {

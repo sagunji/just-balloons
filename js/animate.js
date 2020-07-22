@@ -7,11 +7,9 @@ function Animate() {
     for (var i = 0; i < balls; i++) {
       var ball = new Ball(document.body);
 
-      ball.create(i);
+      ball.create();
 
-      var plot = new Position(window.innerWidth, 0);
-
-      plot.create();
+      var plot = new Position(window.innerWidth, 0).create();
 
       ball.setPosition(plot.x, plot.y);
 
@@ -20,8 +18,6 @@ function Animate() {
       ball.setDimensions(size, size);
 
       this.ballons.push(ball);
-
-      document.body.appendChild(ball.ball);
 
       var timeout = Math.random() * 5 * 1000;
 
