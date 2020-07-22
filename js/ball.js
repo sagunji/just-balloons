@@ -1,77 +1,90 @@
-function Ball(container) {
-  this.intervalId = null;
+class Ball {
+  constructor(container) {
+    this.intervalId = null;
 
-  var container = container;
+    this.container = container;
 
-  var that = this;
+    this.isDeletable = false;
 
-  this.isDeletable = false;
-
-  this.isDeleted = false;
-
-  this.create = function (i) {
+    this.isDeleted = false;
     this.ball = document.createElement("div");
-    this.ball.id = i;
+  }
+
+  create() {
     var ballColor = (color[parseInt(Math.random() * color.length)]);
     this.ball.style.backgroundColor = ballColor;
 
     this.ball.style.position = "absolute";
     this.ball.style.borderRadius = "50%";
 
-    this.ball.addEventListener("click", function () {
-      if (that.isDeletable) {
-        container.style.backgroundColor = that.ball.style.backgroundColor;
+    this.ball.addEventListener(
+      "click",
+      (function () {
+        let that = this;
 
-        that.remove();
-      }
-    });
-  };
+        return function () {
+          if (that.isDeletable) {
+            that.container.style.backgroundColor =
+              that.ball.style.backgroundColor;
 
-  this.remove = function () {
-    container.removeChild(that.ball);
+            that.remove();
+          }
+        };
+      }).bind(this)(),
+    );
+  }
+
+  remove() {
+    this.container.removeChild(that.ball);
 
     clearInterval(that.intervalId);
 
     that.isDeleted = true;
-  };
+  }
 
-  this.setDimensions = function (w, h) {
+  setDimensions(w, h) {
     this.ball.style.width = w + "px";
     this.ball.style.height = h + "px";
-  };
+  }
 
-  this.setPosition = function (x, y) {
+  setPosition(x, y) {
     this.ball.style.left = x + "px";
     this.ball.style.top = y + "px";
-  };
+  }
 
-  this.getPosition = function () {
+  getPosition() {
     return {
       x: parseInt(this.ball.style.left),
       y: parseInt(this.ball.style.top),
     };
-  };
+  }
 
-  this.move = function () {
+  move() {
     this.isDeletable = true;
 
     var movement = Math.ceil(Math.random() * 5);
 
     var direction = 1;
 
-    var height = parseInt(that.ball.style.height);
+    var height = parseInt(this.ball.style.height);
 
-    this.intervalId = setInterval(function () {
-      var currentTop = that.ball.style.top;
+    this.intervalId = setInterval(
+      (function () {
+        var myBall = this.ball;
 
-      var nextTop = parseInt(currentTop) + movement * direction;
+        return function () {
+          var currentTop = myBall.style.top;
 
-      that.ball.style.top = nextTop + "px";
-      console.log(window.clientHeight);
-      console.log(window.innerHeight);
-      if (nextTop >= (window.innerHeight - height) || nextTop <= 0) {
-        direction *= -1;
-      }
-    }, 1000 / 60);
-  };
+          var nextTop = parseInt(currentTop) + movement * direction;
+
+          myBall.style.top = nextTop + "px";
+
+          if (nextTop >= (window.innerHeight - height) || nextTop <= 0) {
+            direction *= -1;
+          }
+        };
+      }).bind(this)(),
+      1000 / 60,
+    );
+  }
 }

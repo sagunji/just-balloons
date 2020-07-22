@@ -54,6 +54,6 @@ function Animate() {
 
 var animate = new Animate();
 
-animate.start(300);
+animate.start(10);
 
 animate.remover();
