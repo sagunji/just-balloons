@@ -1,5 +1,7 @@
-function Ball() {
+function Ball(container) {
   this.intervalId = null;
+
+  var container = container;
 
   var that = this;
 
@@ -18,13 +20,15 @@ function Ball() {
 
     this.ball.addEventListener("click", function () {
       if (that.isDeletable) {
+        container.style.backgroundColor = that.ball.style.backgroundColor;
+
         that.remove();
       }
     });
   };
 
   this.remove = function () {
-    document.body.removeChild(that.ball);
+    container.removeChild(that.ball);
 
     clearInterval(that.intervalId);
 

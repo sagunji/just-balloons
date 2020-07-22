@@ -5,7 +5,7 @@ function Animate() {
 
   this.start = function (balls) {
     for (var i = 0; i < balls; i++) {
-      var ball = new Ball();
+      var ball = new Ball(document.body);
 
       ball.create(i);
 
