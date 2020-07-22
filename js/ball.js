@@ -35,11 +35,11 @@ class Ball {
   }
 
   remove() {
-    this.container.removeChild(that.ball);
+    this.container.removeChild(this.ball);
 
-    clearInterval(that.intervalId);
+    clearInterval(this.intervalId);
 
-    that.isDeleted = true;
+    this.isDeleted = true;
   }
 
   setDimensions(w, h) {

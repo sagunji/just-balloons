@@ -1,14 +1,14 @@
-function Position(width, height) {
-  // var x = null;
-  // var y = null;
+class Position {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
 
-  var width = width;
-  var height = height;
+    this.x = null;
+    this.y = null;
+  }
 
-  // var that = this;
-
-  this.create = function () {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-  };
+  create() {
+    this.x = Math.random() * this.width;
+    this.y = Math.random() * this.height;
+  }
 }
