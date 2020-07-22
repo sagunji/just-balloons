@@ -57,12 +57,21 @@ function Ball(container) {
 
     var movement = Math.ceil(Math.random() * 5);
 
+    var direction = 1;
+
+    var height = parseInt(that.ball.style.height);
+
     this.intervalId = setInterval(function () {
       var currentTop = that.ball.style.top;
 
-      var nextTop = parseInt(currentTop) + movement;
+      var nextTop = parseInt(currentTop) + movement * direction;
 
       that.ball.style.top = nextTop + "px";
+      console.log(window.clientHeight);
+      console.log(window.innerHeight);
+      if (nextTop >= (window.innerHeight - height) || nextTop <= 0) {
+        direction *= -1;
+      }
     }, 1000 / 60);
   };
 }
