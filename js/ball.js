@@ -8,6 +8,9 @@ class Ball {
 
     this.isDeleted = false;
     this.ball = document.createElement("div");
+
+    this.dx = 1;
+    this.dy = 1;
   }
 
   create() {
@@ -61,12 +64,28 @@ class Ball {
     };
   }
 
+  whichSide(top, left, height) {
+    if (top >= (window.innerHeight - height)) {
+      this.dy = -1;
+    }
+
+    if (top <= 0) {
+      this.dy = 1;
+    }
+
+    if (left >= (window.innerWidth - height)) {
+      this.dx = -1;
+    }
+
+    if (left <= 0) {
+      this.dx = 1;
+    }
+  }
+
   move() {
     this.isDeletable = true;
 
     var movement = Math.ceil(Math.random() * 5);
-
-    var direction = 1;
 
     var height = parseInt(this.ball.style.height);
 
@@ -74,16 +93,19 @@ class Ball {
       (function () {
         var myBall = this.ball;
 
-        return function () {
-          var currentTop = myBall.style.top;
+        var that = this;
 
-          var nextTop = parseInt(currentTop) + movement * direction;
+        return function () {
+          var currentTop = parseInt(myBall.style.top);
+          var currentLeft = parseInt(myBall.style.left);
+
+          that.whichSide(currentTop, currentLeft, height);
+
+          var nextTop = currentTop + movement * that.dy;
+          var nextLeft = currentLeft + movement * that.dx;
 
           myBall.style.top = nextTop + "px";
-
-          if (nextTop >= (window.innerHeight - height) || nextTop <= 0) {
-            direction *= -1;
-          }
+          myBall.style.left = nextLeft + "px";
         };
       }).bind(this)(),
       1000 / 60,
